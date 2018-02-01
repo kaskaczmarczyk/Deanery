@@ -3,29 +3,45 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 
-public class Student extends Person implements ManagePerson {
+public class Student extends Person {
 
     int groupNumber;
+    int ECTS;
+    String state;
 
-    public Student(String name, String surname, int groupNumber) {
+    public Student(String name, String surname, int groupNumber, int ECTS, String state) {
         super(name, surname);
         this.groupNumber = groupNumber;
+        this.ECTS = ECTS;
+        this.state = state;
     }
 
-    @Override
-    public void add(Person person) {
+    public boolean passSemester(Student student) {
+        if (this.ECTS >= Deanery.minECTS) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    public void addToDatabase() {
         Connection con = null;
         Statement stat = null;
         try {
-            Class.forName(JDBC.driverName);
-            con = DriverManager.getConnection("com.mysql.jdbc.Driver" + JDBC.database + ".db");
+            Class.forName(Deanery.driverName);
+            con = DriverManager.getConnection(Deanery.url, Deanery.userID, Deanery.password);
 
             stat = con.createStatement();
-            String addSQL = "INSERT INTO " + JDBC.database + " (IDSTUDENT, NAME, SURNAME, IDGROUP) " + "VALUES ("
+            String addSQL = "INSERT INTO " + Deanery.database + " (IDSTUDENT, NAME, SURNAME, IDGROUP, ECTS, STATE) " +
+                    "VALUES ("
                     + null + ", "
                     + "'" + this.name + "'"
                     + "'" + this.surname + "'"
                     + "'" + this.groupNumber + "'"
+                    + "'" + this.ECTS + "'"
+                    + "'" + this.state + "'"
                     + " );";
             stat.executeUpdate(addSQL);
             stat.close();
@@ -36,13 +52,13 @@ public class Student extends Person implements ManagePerson {
         }
     }
 
-    @Override
-    public void delete(Person person) {
+
+    public void delete(Student student) {
 
     }
 
-    @Override
-    public void edit(Person person) {
+
+    public void edit(Student student) {
 
     }
 

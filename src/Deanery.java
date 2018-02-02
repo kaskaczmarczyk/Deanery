@@ -2,15 +2,66 @@ import java.sql.*;
 
 public class Deanery {
 
-    public static String driverName = "com.mysql.jdbc.Driver";
-    public static String database = "deanery";
-    static String url = "jdbc:mysql://localhost/deanery";
+    public static final String driverName = "com.mysql.jdbc.Driver";
+    public static final String database = "deanery";
+    public static final String url = "jdbc:mysql://localhost/deanery";
     static String userID = "root";
     static String password = "";
     public static final int minECTS = 20;
 
-    public static void main(String[] args) {
+    Connection connection;
+    Statement stmt;
 
+    public Deanery(){
+        try {
+            Class.forName(driverName);
+        } catch (ClassNotFoundException exc) {
+            System.err.println("No driver JDBC");
+            exc.printStackTrace();
+        }
+
+        try {
+            connection = DriverManager.getConnection(url, userID, password);
+            stmt = connection.createStatement();
+        } catch (SQLException exc) {
+            System.err.println("Problem with opening the connection");
+            exc.printStackTrace();
+        }
+
+        connect(database);
+    }
+
+    public boolean createTables() {
+        String createStudent = "CREATE TABLE IF NOT EXISTS STUDENT (IDSTUDENT INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "NAME varchar(255), SURNAME varchar(255), IDGROUP int, ECTS int, STATE varchar)";
+        try {
+            stmt.execute(createStudent);
+        } catch (SQLException exc) {
+            System.err.println("Error when creating the table");
+            exc.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+/*
+
+    public boolean insertLecturer(Lecturer lecturer) {
+        try {
+            PreparedStatement prepStmt = connection.prepareStatement("insert into Lecturer values(?,?,?,?);");
+            prepStmt.setInt(1, IDLECTURER);
+            prepStmt.setString(2, Lecturer.name);
+            prepStmt.setString(3, Student.surname);
+            prepStmt.setString(4, Student.nameOfSubject);
+        } catch (SQLException exc) {
+            System.err.println("Error when inserting the lecturer");
+            exc.printStackTrace();
+            return false;
+        }
+        return true;
+    }*/
+
+    public void showStudent() {
         try {
             Connection connection = connect(Deanery.database);
             Statement stmt = connection.createStatement();
@@ -50,6 +101,15 @@ public class Deanery {
             return null;
         }
         return connection;
+    }
+
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException exc) {
+            System.err.println("Problem closing the connection");
+            exc.printStackTrace();
+        }
     }
 
 }

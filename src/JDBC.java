@@ -1,12 +1,28 @@
 public class JDBC {
 
     public static void main(String[] args) {
-/*
-        System.out.println("What you want do do?");
-        System.out.println("if you want to add a new student to the database, press AS");
-*/
 
-        Student newStudent = new Student("DD", "CC", 6, 9, "nzal");
-        newStudent.addStudentToDatabase();
+/*        Student newStudent = new Student("FF", "CC", 6, 9, "nzal");
+        newStudent.addStudentToDatabase();*/
+
+/*        Lecturer newLecturer = new Lecturer("Antoni", "Szuszarski", "Drewno");
+        newLecturer.addLecturerToDatabase();*/
+
+/*        Group newGroup = new Group(7);
+        newGroup.addGroupToDatabase();*/
+
+/*        Subject newSubject = new Subject("Konstrukcje betonowe");
+        newSubject.addSubjectToDatabase();*/
+
+/*        Student.checkNumberOfStudents();*/
+
+/*        Student.deleteStudentFromDatabase(23);*/
+
+/*        Lecturer.deleteLecturerFromDatabase(11);*/
+
+/*        Group.deleteGroupFromDatabase(7);*/
+
+        Subject.deleteSubjectFromDatabase(26);
     }
+
 }

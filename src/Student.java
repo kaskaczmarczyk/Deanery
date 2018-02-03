@@ -9,6 +9,7 @@ public class Student extends Person {
     int ects;
     String state;
 
+
     public Student(String name, String surname, int groupNumber, int ects, String state) {
         super(name, surname);
         this.groupNumber = groupNumber;
@@ -65,7 +66,7 @@ public class Student extends Person {
             prepstm.setInt(4, this.ects);
             prepstm.setString(5, this.state);
             prepstm.execute();
-//            numberOfStudents = checkNumberOfStudents();
+            numberOfStudents = checkNumberOfStudents();
             System.out.println("You added a new student to database. Now there are "+ numberOfStudents + " students in the database.");
         } catch (SQLException exc) {
             System.err.println("Error when inserting the student.");
@@ -100,4 +101,27 @@ public class Student extends Person {
             }
     }
 
+    public static void changeStudentData(int idChangeStudent) {
+        Connection connection = null;
+        String sql = "UPDATE student SET NAME = ?, SURNAME = ?, IDGROUP = ?, ECTS = ?, STATE = ? WHERE IDSTUDENT = '" + idChangeStudent + "'";
+        try {
+            connection = DriverManager.getConnection(Deanery.url, Deanery.userID, Deanery.password);
+        } catch (SQLException exc) {
+            System.err.println("Problem with connecting to the database.");
+            exc.printStackTrace();
+        }
+        try {
+            PreparedStatement prepstm = connection.prepareStatement(sql);
+            prepstm.setString(1, "Grzegorz");
+            prepstm.setString(2, "Grzegorz");
+            prepstm.setInt(3, 5);
+            prepstm.setInt(4, 10);
+            prepstm.setString(5, "nzal");
+            prepstm.executeUpdate();
+            System.out.println("You have changed the student's data in the database.");
+        } catch (SQLException exc) {
+            System.err.println("Error when editing student data.");
+            exc.printStackTrace();
+        }
+    }
 }

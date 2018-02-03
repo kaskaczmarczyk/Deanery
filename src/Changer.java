@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class InstructionsSQL {
+public class Changer {
 
     String nameOfTable;
     int numberOfRows;
@@ -57,8 +57,3 @@ public class InstructionsSQL {
         }
     }
 }
-
-
-
-
-

@@ -22,7 +22,18 @@ public class JDBC {
 
 /*        Group.deleteGroupFromDatabase(7);*/
 
-        Subject.deleteSubjectFromDatabase(26);
+/*        Student.deleteStudentFromDatabase(26);*/
+
+/*        Student.changeStudentData(12);*/
+
+/*        Grades.checkGrade(8.0);*/
+
+/*        ItemChanger test1 = new ItemChanger();
+        test1.deleteFromDatabase(4);*/
+
+/*        Grades.addGradeToDatabase(15, 4, 3.5);*/
+
+        Grades.deleteGradeFromDatabase(7);
     }
 
 }
